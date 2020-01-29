@@ -3,6 +3,7 @@ package com.training.coauth.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "channels")
 public class Channel {
 
     @Id
