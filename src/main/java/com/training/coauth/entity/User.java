@@ -1,17 +1,23 @@
 package com.training.coauth.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.io.Serializable;
-import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "users")
 public class User {
 
-    @EmbeddedId UserId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Email
+    @Column(nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private String name;
@@ -19,8 +25,8 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @Column(nullable = false)
-    private String role;
+    @OneToMany(cascade=CascadeType.ALL)
+    private Set<Role> roles;
 
 
 }
