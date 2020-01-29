@@ -25,9 +25,10 @@ public class JwtController {
     @Autowired
     TokenProvider tokenProvider;
 
-    protected final Log logger = LogFactory.getLog(getClass());
+    @Autowired
+    AppProperties appProperties;
 
-    private AppProperties appProperties;
+    protected final Log logger = LogFactory.getLog(getClass());
 
     @PostMapping("/validateToken")
     public ResponseEntity<?> authenticateToken(@RequestBody TokenRequest tokenRequest){
@@ -52,20 +53,15 @@ public class JwtController {
         } catch (Exception e) {
             logger.error("Could not get all claims Token from passed token");
             claims = null;
+            return ResponseEntity.ok("Could not get all claims Token from passed token");
         }
-
         
-
-        String userName = ((String) claims.get("name"));
         String userEmail = ((String) claims.get("email"));
-        Long userId = ((Long) claims.get("id"));
+        Long userId = (Long.valueOf(String.valueOf(claims.get("id"))));
 
-        return ResponseEntity.ok(new UserResponse(userId,userEmail,userName));
+        return ResponseEntity.ok(new UserResponse(userId,userEmail));
 
     }
-
-
-
 
 
 
