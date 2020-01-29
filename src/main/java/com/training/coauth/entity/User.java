@@ -4,17 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Locale;
 import java.util.Set;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users" , uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     @Email
     @Column(nullable = false)
@@ -34,11 +35,11 @@ public class User {
 
 
     public Long getId() {
-        return id;
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {

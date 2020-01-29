@@ -55,7 +55,7 @@ public class JwtController {
             claims = null;
             return ResponseEntity.ok("Could not get all claims Token from passed token");
         }
-        
+
         String userEmail = ((String) claims.get("email"));
         Long userId = (Long.valueOf(String.valueOf(claims.get("id"))));
 

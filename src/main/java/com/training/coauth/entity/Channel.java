@@ -3,7 +3,9 @@ package com.training.coauth.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "channels")
+@Table(name = "channels",uniqueConstraints = {
+        @UniqueConstraint(columnNames = "channelName")
+})
 public class Channel {
 
     @Id
