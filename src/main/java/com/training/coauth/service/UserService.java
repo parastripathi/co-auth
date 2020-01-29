@@ -1,4 +1,4 @@
-package com.training.coauth.service.service;
+package com.training.coauth.service;
 
 
 import com.training.coauth.entity.User;

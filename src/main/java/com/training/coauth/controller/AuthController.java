@@ -8,7 +8,7 @@ import com.training.coauth.dto.SignUpRequest;
 import com.training.coauth.entity.User;
 import com.training.coauth.exception.BadRequestException;
 import com.training.coauth.security.TokenProvider;
-import com.training.coauth.service.service.UserService;
+import com.training.coauth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,8 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 @RestController
@@ -47,9 +45,6 @@ public class AuthController {
 
         String token = userService.getToken(userEmail,userPassword);
         userService.setRedis(token,userEmail);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date currentDate = new Date(System.currentTimeMillis());
-
         return ResponseEntity.ok(new AuthResponse(token));
     }
 

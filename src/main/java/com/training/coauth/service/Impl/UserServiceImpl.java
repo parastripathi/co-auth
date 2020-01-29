@@ -1,10 +1,10 @@
-package com.training.coauth.service.service.Impl;
+package com.training.coauth.service.Impl;
 
 
 import com.training.coauth.entity.User;
 import com.training.coauth.repository.UserRepository;
 import com.training.coauth.security.TokenProvider;
-import com.training.coauth.service.service.UserService;
+import com.training.coauth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
