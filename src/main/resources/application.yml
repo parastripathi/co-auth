@@ -1,3 +1,18 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/trainingdb
+        username: training
+        password: training
+        hikari:
+          validationTimeout: 300000
+
+
+    jpa:
+            show-sql: true
+            hibernate:
+                ddl-auto: create-drop
+                naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
 app:
   auth:
       tokenSecret : 14BA43CB5F11064C8E1EB8296139F69437F3CC389573D756CD307F2491D54862
