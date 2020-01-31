@@ -1,24 +1,46 @@
 package com.training.coauth.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles",uniqueConstraints=@UniqueConstraint(columnNames = {"user_id","channel_channel_id","role"}))
 public class Role implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long roleId;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User users;
 
-    @Id
     @OneToOne(cascade = CascadeType.ALL)
     private Channel channel;
 
-    @Id
     private String role;
 
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

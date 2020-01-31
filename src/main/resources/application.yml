@@ -18,3 +18,6 @@ app:
       tokenSecret : 14BA43CB5F11064C8E1EB8296139F69437F3CC389573D756CD307F2491D54862
       tokenExpirationMsec: 864000000
 
+server:
+  port: 8080
+

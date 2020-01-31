@@ -29,6 +29,7 @@ public class TokenProvider {
         return Jwts.builder()
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .claim("id",userPrincipal.getId())
+                .claim("name",userPrincipal.getName())
                 .claim("email",userPrincipal.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)

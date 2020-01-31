@@ -1,6 +1,8 @@
 package com.training.coauth.controller;
 
 
+import com.training.coauth.Utility.RoleUtils;
+import com.training.coauth.Utility.UserUtils;
 import com.training.coauth.config.AppProperties;
 import com.training.coauth.dto.ApiResponse;
 import com.training.coauth.dto.TokenRequest;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/jwt")
 public class JwtController {
@@ -26,14 +30,18 @@ public class JwtController {
     TokenProvider tokenProvider;
 
     @Autowired
-    AppProperties appProperties;
+    RoleUtils roleUtils;
+
+    @Autowired
+    UserUtils userUtils;
 
     protected final Log logger = LogFactory.getLog(getClass());
 
     @PostMapping("/validateToken")
-    public ResponseEntity<?> authenticateToken(@RequestBody TokenRequest tokenRequest){
+    public ResponseEntity<?> authenticateToken(HttpServletRequest request,@RequestBody TokenRequest tokenRequest){
 
-        String token = tokenRequest.getToken();
+        String requestTokenHeader = request.getHeader("Authorization");
+        String token = requestTokenHeader.substring(7);
         if(tokenProvider.validateToken(token)){
             return ResponseEntity.ok(new ApiResponse(true,"The token is Valid"));
         }
@@ -42,24 +50,18 @@ public class JwtController {
     }
 
     @PostMapping("/getUserDetails")
-    public ResponseEntity<?> getUserDetails(@RequestBody TokenRequest tokenRequest){
-        String token = tokenRequest.getToken();
-        Claims claims;
-        try {
-            claims = Jwts.parser()
-                    .setSigningKey(appProperties.getAuth().getTokenSecret())
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            logger.error("Could not get all claims Token from passed token");
-            claims = null;
-            return ResponseEntity.ok("Could not get all claims Token from passed token");
-        }
+    public ResponseEntity<?> getUserDetails(HttpServletRequest request, @RequestBody TokenRequest tokenRequest){
 
+        String requestTokenHeader = request.getHeader("Authorization");
+        String token = requestTokenHeader.substring(7);
+        Long provider = tokenRequest.getProvider();
+        Claims claims = userUtils.loadClaimsByToken(token);
         String userEmail = ((String) claims.get("email"));
         Long userId = (Long.valueOf(String.valueOf(claims.get("id"))));
+        String userName = ((String) claims.get("name"));
+        String userRole = roleUtils.getRoleById(userId,provider);
 
-        return ResponseEntity.ok(new UserResponse(userId,userEmail));
+        return ResponseEntity.ok(new UserResponse(userId,userName,userEmail,userRole));
 
     }
 

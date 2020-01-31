@@ -1,10 +1,7 @@
 package com.training.coauth.controller;
 
 
-import com.training.coauth.dto.ApiResponse;
-import com.training.coauth.dto.AuthResponse;
-import com.training.coauth.dto.LoginRequest;
-import com.training.coauth.dto.SignUpRequest;
+import com.training.coauth.dto.*;
 import com.training.coauth.entity.User;
 import com.training.coauth.exception.BadRequestException;
 import com.training.coauth.security.TokenProvider;
@@ -65,7 +62,7 @@ public class AuthController {
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/user/me")
-                .buildAndExpand(result.getId()).toUri();
+                .buildAndExpand(result.getUserId()).toUri();
 
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "User registered successfully"));

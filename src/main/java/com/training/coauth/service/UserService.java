@@ -15,7 +15,6 @@ public interface UserService {
 
     String getToken(String userEmail, String userPassword);
 
-
     void setRedis(String token, String userEmail);
 
 }

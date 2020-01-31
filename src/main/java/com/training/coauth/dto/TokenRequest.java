@@ -4,14 +4,15 @@ import javax.validation.constraints.NotBlank;
 
 public class TokenRequest {
 
-    @NotBlank
-    private String token;
 
-    public String getToken() {
-        return token;
+    @NotBlank
+    private Long provider;
+
+    public Long getProvider() {
+        return provider;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setProvider(Long provider) {
+        this.provider = provider;
     }
 }

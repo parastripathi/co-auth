@@ -27,20 +27,27 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    private Set<Role> roles;
+//    @OneToMany(cascade=CascadeType.ALL)
+//    private Set<Role> roles;
+//
+//    @OneToMany(cascade=CascadeType.ALL)
+//    private Set<Category> categories;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    private Set<Category> categories;
-
-
-    public Long getId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setId(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+//    public Set<Category> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(Set<Category> categories) {
+//        this.categories = categories;
+//    }
 
     public String getEmail() {
         return email;
@@ -66,13 +73,13 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 }
 
 

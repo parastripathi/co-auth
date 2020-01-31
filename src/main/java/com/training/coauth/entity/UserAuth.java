@@ -1,27 +1,18 @@
-package com.training.coauth.dto;
+package com.training.coauth.entity;
 
-public class UserResponse {
+import org.springframework.data.redis.core.RedisHash;
+
+import java.io.Serializable;
+
+@RedisHash("User")
+public class UserAuth implements Serializable {
 
     private Long id;
     private String name;
     private String email;
     private String role;
 
-    public UserResponse(Long id, String email, String role) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
-    }
-
-    public UserResponse(Long id, String name, String email, String role) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-    }
-
     public Long getId() {
-
         return id;
     }
 
