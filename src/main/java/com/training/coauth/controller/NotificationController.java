@@ -2,16 +2,16 @@ package com.training.coauth.controller;
 
 import com.training.coauth.dto.ApiResponse;
 import com.training.coauth.dto.FcmRequest;
+import com.training.coauth.dto.FcmResponse;
 import com.training.coauth.dto.RoleRequest;
+import com.training.coauth.entity.Notification;
 import com.training.coauth.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/notification")
@@ -31,7 +31,15 @@ public class NotificationController {
 
     }
 
+    @GetMapping("/getFcmByUser/{id}")
+    public FcmResponse getFCMDetails(HttpServletRequest request, @PathVariable Long id){
+        List<Notification> fcmTokens = notificationService.getFcmUser(id);
+        FcmResponse fcmResponse = new FcmResponse();
+        fcmResponse.setFcmTokens(fcmTokens);
 
+        return fcmResponse;
+
+    }
 
 
 
